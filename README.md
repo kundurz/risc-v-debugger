@@ -158,4 +158,7 @@ Resume or step
 | `restart` | Restart the debugee | `restart` |
 | `help` | Show available commands | `help` |
 
-## Example Usage
+## Demo 
+
+https://github.com/user-attachments/assets/54933605-7041-43d0-be1e-69fc40bad433
+
