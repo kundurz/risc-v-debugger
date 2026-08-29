@@ -35,7 +35,7 @@ RVDB has the following major capabilities:
 │  │ PS/2        │ scans │                 USER INTERFACE                   │  │
 │  │ Keyboard    ├──────►│  ┌──────────┐    ┌───────────────┐               │  │
 │  └─────────────┘       │  │ UI Loop  ├───►│ Command Parser│               │  │
-│                        │  │  ui.c     │◄───┤  commands.c  │               │  │
+│                        │  │  ui.c    │◄───┤  commands.c   │               │  │
 │  ┌─────────────┐ chars │  └────┬─────┘    └───────┬───────┘               │  │
 │  │ VGA Display │◄──────┤       │                  │                       │  │
 │  └─────────────┘       └───────┼──────────────────┼───────────────────────┘  │
@@ -62,8 +62,8 @@ RVDB has the following major capabilities:
 │  │           │              │ TrapFrame        │    │disassembler.c │     │  │
 │  │           │ inspect      │                  │    └───────────────┘     │  │
 │  │           └─────────────►│ x1–x31           │                          │  │
-│  │                          │ mepc, mcause      │                         │  │
-│  │                          │ mstatus, mtval    │                         │  │
+│  │                          │ mepc, mcause     │                          │  │
+│  │                          │ mstatus, mtval   │                          │  │
 │  │                          └────────▲─────────┘                          │  │
 │  └───────────────────────────────────┼────────────────────────────────────┘  │
 │                                      │ save / restore                        │
