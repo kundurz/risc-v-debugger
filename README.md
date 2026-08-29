@@ -1,5 +1,7 @@
 # RVDB: A bare metal NIOS-V debugger
 
+*Sourrce code is maintained in a private repository*
+
 **Authors**: Linus Kundur-Zourntos & Jet Chiang
 
 ## Overview 
