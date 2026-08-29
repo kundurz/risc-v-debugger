@@ -1,0 +1,84 @@
+```
+                                  NIOS-V BARE-METAL DEBUGGER
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                           DE1-SoC / Nios V System                            │
+│                                                                              │
+│  ┌─────────────┐       ┌──────────────────────────────────────────────────┐  │
+│  │ PS/2        │ scans │                 USER INTERFACE                   │  │
+│  │ Keyboard    ├──────►│  ┌──────────┐    ┌───────────────┐              │  │
+│  └─────────────┘       │  │ UI Loop  ├───►│ Command Parser│              │  │
+│                        │  │  ui.c     │◄───┤  commands.c   │              │  │
+│  ┌─────────────┐ chars │  └────┬─────┘    └───────┬───────┘              │  │
+│  │ VGA Display │◄──────┤       │                  │                      │  │
+│  └─────────────┘       └───────┼──────────────────┼──────────────────────┘  │
+│                                 │                  │                         │
+│                                 │       ┌──────────┴───────────┐             │
+│                                 │       │                      │             │
+│                           pause │  continue / step       inspect / modify     │
+│                                 │       │                      │             │
+│                                 ▼       ▼                      ▼             │
+│  ┌────────────────────────────────────────────────────────────────────────┐  │
+│  │                         DEBUGGER ENGINE                                │  │
+│  │                                                                        │  │
+│  │  ┌─────────────────┐   ┌──────────────────┐   ┌─────────────────────┐  │  │
+│  │  │ Execution Core  │──►│ Breakpoint      │──►│ Program Memory      │  │  │
+│  │  │ core.c          │   │ Manager         │   │                     │  │  │
+│  │  │                 │◄──│ breakpoint.c    │◄──│ Original/patched    │  │  │
+│  │  │ • continue      │   │                 │   │ instructions        │  │  │
+│  │  │ • single-step   │   │ • breakpoint DB │   └──────────┬──────────┘  │  │
+│  │  │ • trap decision │   │ • JAL patching  │              │             │  │
+│  │  └────────┬────────┘   │ • next-PC calc  │    instructions│             │  │
+│  │           │            └──────────────────┘              ▼             │  │
+│  │           │                                      ┌───────────────┐     │  │
+│  │           │              ┌──────────────────┐    │ Disassembler  │     │  │
+│  │           │              │ TrapFrame        │    │disassembler.c │     │  │
+│  │           │ inspect      │                  │    └───────────────┘     │  │
+│  │           └─────────────►│ x1–x31           │                          │  │
+│  │                          │ mepc, mcause      │                          │  │
+│  │                          │ mstatus, mtval    │                          │  │
+│  │                          └────────▲─────────┘                          │  │
+│  └───────────────────────────────────┼────────────────────────────────────┘  │
+│                                      │ save / restore                        │
+│                           ┌──────────┴───────────┐                           │
+│                           │ Assembly Trap Handler│                           │
+│                           │ trap_handler.S       │                           │
+│                           └──────────▲───────────┘                           │
+│                                      │ patched JAL                           │
+│                                      │ breakpoint / step target              │
+│                           ┌──────────┴───────────┐                           │
+│                           │   Debugee Program    │                           │
+│                           │ program_start → done │                           │
+│                           └──────────┬───────────┘                           │
+│                                      │                                      │
+│                                resume execution                             │
+│                                      └───────────────────────────┐          │
+│                                                                  ▼          │
+│                                                            ┌───────────┐    │
+│                                                            │ Nios V CPU│    │
+│                                                            └───────────┘    │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+Execution flow:
+
+  Startup
+     │
+     ▼
+  Initialize UI and breakpoint table
+     │
+     ▼
+  Patch program_start ──► Run debugee
+                              │
+                    breakpoint or step target
+                              │
+                              ▼
+                   Save registers in TrapFrame
+                              │
+                              ▼
+                    Debugger execution core
+                         ┌────┴────┐
+                         │         │
+                       Pause     Resume
+                         │         │
+                         ▼         └────────────► Debugee
+                    Command UI
+```
