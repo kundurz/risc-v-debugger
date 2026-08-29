@@ -1,7 +1,5 @@
 # RVDB: A bare metal NIOS-V debugger
 
-*Sourrce code is maintained in a private repository*
-
 **Authors**: Linus Kundur-Zourntos & Jet Chiang
 
 ## Overview 
@@ -163,4 +161,8 @@ Resume or step
 ## Demo 
 
 https://github.com/user-attachments/assets/54933605-7041-43d0-be1e-69fc40bad433
+
+## Source code
+The source code for this project is not publicly available due to University of Toronto course regulations. This repository contains project documentation and a demonstration of the completed system.
+
 
