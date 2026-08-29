@@ -109,9 +109,12 @@ The software-based stepping algorithm is as follows:
 7. Return control to the command UI. 
 
 ## Trap Frame
-When the debugger gains control, the program state at that moment can be observed by the user.
-
-This includes general purpose registers `x1` through `x31`, as well as the process memory. 
+The trap frame saves the following registers:
+* General-purpose registers (`x1` - `x31`)
+* `mepc`
+* `mcause`
+* `mstatus`
+* `mtval`
 
 ## Startup and exeucution flow
 ```
