@@ -98,6 +98,8 @@ The current implementation does not primarily use a conventional `ebreak`. excep
 
 Because the NIOS V GDB environment intercepts and manages `ebreak` instructions before the user can handle them, the debugger could not use `ebreak` for its own software breakpoitns. Instead, it replaces instructions with `jal` instructions that transfer control directly to the custom trap handler.
 
+Unfortunately, there was no straightforward way to separate NIOS V from the GDB environment. 
+
 ## How single-stepping works
 The software-based stepping algorithm is as follows:
 1. Read the instruction at the current PC
