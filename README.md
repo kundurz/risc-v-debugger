@@ -12,6 +12,16 @@ Important characteristics:
 * It supports breakpoints, stepping, continuing, register inspection, memory inspection, and disassembly
 * It can run on physical hardware or CPULator
 
+## Table of Contents
+* [Functionality](#functionality)
+* [Architecture](#architecture)
+* [Breakpoints](#how-breakpoints-work)
+* [Single-Stepping](#how-single-stepping-works)
+* [Trap Frame](#trap-frame)
+* [Startup and execution flow](#startup-and-execution-flow)
+* [Commands](#commands)
+* [Demo](#demo)
+
 ## Functionality
 RVDB has the following major capabilities:
 * Software breakpoints
@@ -118,7 +128,7 @@ The trap frame saves the following registers:
 * `mstatus`
 * `mtval`
 
-## Startup and exeucution flow
+## Startup and execution flow
 ```
 _start
   │
